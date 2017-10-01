@@ -34,6 +34,10 @@ namespace aca_helper.Dialogs
             var start2018 = new DateTime(2018, 01, 01);
             var start2019 = new DateTime(2019, 01, 01);
 
+            string correctResponse = $"<p style=\"margin-bottom: 10px;\"><strong>November 1, 2017:</strong> Open Enrollment begins.</p>" +
+                        $"<p style=\"margin-bottom: 10px;\"><strong>December 15, 2017:</strong> Open Enrollment ends. After December 15, you can still buy a health plan if you qualify for a <a href=\"https://www.healthcare.gov/glossary/special-enrollment-period/\">Special Enrollment Period.</a></p>" +
+                        $"<p><strong>January 1, 2018:</strong> Plans sold during Open Enrollment start.</p>";
+
             Chronic.Parser parser = new Chronic.Parser();
             EntityRecommendation date = new EntityRecommendation();
             Chronic.Span dateResult;
@@ -44,7 +48,7 @@ namespace aca_helper.Dialogs
 
                 if (dateResult.Start >= start2018 && dateResult.Start < start2019)
                 {
-                    response = $"I understand what you said, but someone is training me on how to respond. Thanks for your patience";
+                    response = correctResponse;
                 }
                 else
                 {
@@ -102,7 +106,7 @@ namespace aca_helper.Dialogs
 
                 if (entityStart >= start2018 && entityEnd <= start2019)
                 {
-                    response = $"I understand what you said, but someone is training me on how to respond. Thanks for your patience";
+                    response = correctResponse;
                 } else
                 {
                     response = $"Do you mean 2018?";
