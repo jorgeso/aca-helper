@@ -124,6 +124,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="appsetings.json" />
+    <None Include="Properties\PublishProfiles\bot-aca-helper - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
