@@ -7,6 +7,7 @@ using Microsoft.Bot.Builder.Luis.Models;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace aca_helper.Dialogs
 {
