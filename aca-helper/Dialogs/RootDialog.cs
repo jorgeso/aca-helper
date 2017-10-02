@@ -30,7 +30,7 @@ namespace aca_helper.Dialogs
         public async Task ImportantDates(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response = "";
+            string response = $"Open Enrollment begins November 1, 2017 and it ends December 15, 2017. After December 15, you can still buy a health plan if you qualify for a Special Enrollment Period (https://www.healthcare.gov/glossary/special-enrollment-period). If you buy any plans, coverage starts on January 1, 2018.";
 
             var start2018 = new DateTime(2018, 01, 01);
             var start2019 = new DateTime(2019, 01, 01);
@@ -51,7 +51,7 @@ namespace aca_helper.Dialogs
                 }
                 else
                 {
-                    response = $"Do you mean 2018?";
+                    response = $"I'm assuming you're asking for the important dates for signing up for coverage for 2018. " + correctResponse;
                 }
             }
 
@@ -108,7 +108,7 @@ namespace aca_helper.Dialogs
                     response = correctResponse;
                 } else
                 {
-                    response = $"Do you mean 2018?";
+                    response = $"I'm assuming you're asking for the important dates for signing up for coverage for 2018. " + correctResponse;
                 }
 
             }
