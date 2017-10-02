@@ -117,5 +117,17 @@ namespace aca_helper.Dialogs
 
             context.Wait(this.MessageReceived);
         }
+
+        [LuisIntent("PlanAndPrices")]
+        public async Task PlanAndPrices(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response = $"2018 plans and prices will be available for preview shortly before Open Enrollment starts on November 1, 2017. " +
+                $"For now, read these Marketplace tips (https://www.healthcare.gov/quick-guide/) and use this checklist (https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf) to gather everything you’ll need to apply.";
+
+            await context.PostAsync(response);
+
+            context.Wait(this.MessageReceived);
+        }
     }
 }
