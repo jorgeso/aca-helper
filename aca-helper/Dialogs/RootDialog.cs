@@ -122,10 +122,15 @@ namespace aca_helper.Dialogs
         public async Task PlanAndPrices(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response = $"2018 plans and prices will be available for preview shortly before Open Enrollment starts on November 1, 2017. " +
-                $"For now, read these Marketplace tips (https://www.healthcare.gov/quick-guide/) and use this checklist (https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf) to gather everything you’ll need to apply.";
+            string response_one = $"2018 plans and prices will be available for preview shortly before Open Enrollment starts on November 1, 2017";
+            await context.PostAsync(response_one);
 
-            await context.PostAsync(response);
+            string response_two = $"For now, read these Marketplace tips: https://www.healthcare.gov/quick-guide";
+            await context.PostAsync(response_two);
+
+            string response_three = $"And use this checklist to gather everything you’ll need to apply: " +
+                $"https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf";
+            await context.PostAsync(response_three);
 
             context.Wait(this.MessageReceived);
         }
