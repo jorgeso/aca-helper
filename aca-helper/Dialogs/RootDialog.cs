@@ -303,17 +303,6 @@ namespace aca_helper.Dialogs
             context.Wait(this.MessageReceived);
         }
 
-        [LuisIntent("Insult")]
-        public async Task Insult(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
-        {
-            var message = await activity;
-
-            string response_one = $"Stop acting like a child.";
-            await context.PostAsync(response_one);
-
-            context.Wait(this.MessageReceived);
-        }
-
         [LuisIntent("Greeting")]
         public async Task Greeting(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
