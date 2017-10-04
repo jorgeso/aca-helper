@@ -324,5 +324,19 @@ namespace aca_helper.Dialogs
 
             context.Wait(this.MessageReceived);
         }
+
+        [LuisIntent("HowAreYou")]
+        public async Task HowAreYou(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+
+            string response_one = $"I'm a robot. How bad can things be?";
+            await context.PostAsync(response_one);
+
+            string response_two = $"How can I help you?";
+            await context.PostAsync(response_two);
+
+            context.Wait(this.MessageReceived);
+        }
     }
 }
