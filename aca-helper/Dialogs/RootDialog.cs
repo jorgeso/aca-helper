@@ -236,6 +236,66 @@ namespace aca_helper.Dialogs
             context.Wait(this.MessageReceived);
         }
 
+        [LuisIntent("CostSharingReductions")]
+        public async Task CostSharingReductions(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response_one = $"\"Cost sharing reductions\" lower your out-of-pocket costs for health insurance. If you " +
+                $"qualify, you must enroll in a Silver plan to get these extra savings. With Silver, you’ll have a pretty low " +
+                $"premium, with a lower deductible and lower costs whenever you go to the doctor or have other medical expenses.";
+            await context.PostAsync(response_one);
 
+            string response_two = $"You can find more information here: " +
+                $"https://www.healthcare.gov/lower-costs/save-on-out-of-pocket-costs";
+            await context.PostAsync(response_two);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("EstimatingIncome")]
+        public async Task EstimatingIncome(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response_one = $"The Marketplace bases savings on your estimated income for the year you want coverage – not last year's.";
+            await context.PostAsync(response_one);
+
+            string response_two = $"You can find information on how to estimate you expected income here: " +
+                $"https://www.healthcare.gov/income-and-household-information/how-to-report";
+            await context.PostAsync(response_two);
+
+            string response_three = $"And here you can information on what counts as income: " +
+                $"https://www.healthcare.gov/income-and-household-information/income";
+            await context.PostAsync(response_three);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("IncludedInHousehold")]
+        public async Task IncludedInHousehold(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response_one = $"Most households include the person applying for coverage, their spouse (if married), " +
+                $"and anybody they claim as a tax dependent - including those who don't need health coverage. When you " +
+                $"apply, you can say who needs coverage and who doesn’t";
+            await context.PostAsync(response_one);
+
+            string response_two = $"You can find more information here: " +
+                $"https://www.healthcare.gov/income-and-household-information/household-size";
+            await context.PostAsync(response_two);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("TotalHealthCareCost")]
+        public async Task TotalHealthCareCost(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+
+            string response_two = $"To learn how your deductible, premium, and other costs work together to make up your total health care cost, go here: " +
+                $"https://www.healthcare.gov/choose-a-plan/your-total-costs";
+            await context.PostAsync(response_two);
+
+            context.Wait(this.MessageReceived);
+        }
     }
 }
