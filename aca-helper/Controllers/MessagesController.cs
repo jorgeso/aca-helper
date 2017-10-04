@@ -45,7 +45,7 @@ namespace aca_helper
 
                     var reply = message.CreateReply();
 
-                    reply.Text = "Hello, I'm the Affordable Care Act helper bot. I will try to help you answer questions you may have, just keep in mind that I'm still being trained by the great Jorge.";
+                    reply.Text = "Hello, I'm the Affordable Care Act (ACA) helper bot. I will try to answer any questions you may have, just keep in mind that I'm still being trained by the great Jorge.";
 
                     await client.Conversations.ReplyToActivityAsync(reply);
                 }

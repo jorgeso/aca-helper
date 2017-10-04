@@ -313,5 +313,16 @@ namespace aca_helper.Dialogs
 
             context.Wait(this.MessageReceived);
         }
+
+        [LuisIntent("Greeting")]
+        public async Task Greeting(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+
+            string response_one = $"Hello, how can I help you?";
+            await context.PostAsync(response_one);
+
+            context.Wait(this.MessageReceived);
+        }
     }
 }
