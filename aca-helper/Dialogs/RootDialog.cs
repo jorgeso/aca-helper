@@ -129,5 +129,113 @@ namespace aca_helper.Dialogs
 
             context.Wait(this.MessageReceived);
         }
+
+        [LuisIntent("GettingReady")]
+        public async Task GettingReady(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response_one = $"It's important that you take the time to get ready";
+            await context.PostAsync(response_one);
+
+            string response_two = $"First, you can go to this website to see you're eligible to apply: https://www.healthcare.gov/quick-guide/eligibility";
+            await context.PostAsync(response_two);
+
+            string response_three = $"Then, you can go through this checklist to make sure you're ready: https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf";
+            await context.PostAsync(response_three);
+
+            string response_four = $"And finally, you can get an overview of the Marketplace here: https://www.healthcare.gov/quick-guide";
+            await context.PostAsync(response_four);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("IsSavingMoney")]
+        public async Task IsSavingMoney(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response = $"Your savings depend on your expected household income for 2018. To get a quick idea if you’ll save, " +
+                $"go here: https://www.healthcare.gov/lower-costs. We'll tell you if your income's in the saving range. But you'll find out " +
+                $"exactly how much you'll save when you apply.";
+
+            await context.PostAsync(response);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("SubmitDocuments")]
+        public async Task SubmitDocuments(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+
+            string response_one = $"The method for uploading documents online depends on the information you're providing";
+            await context.PostAsync(response_one);
+
+            string response_two = $"If you need to confirm application information, like your income, check out this quick guide with pictures: " +
+                $"https://www.healthcare.gov/downloads/howto-uploaddocs-datamatching-FINAL.pdf";
+            await context.PostAsync(response_two);
+
+            string response_three = $"If you need to confirm your Special Enrollment Period eligibility, like if you lost other health coverage or moved, check out this quick guide with pictures: " +
+                $"https://www.healthcare.gov/downloads/SEPV-how-to-upload-docs_final.pdf";
+            await context.PostAsync(response_three);
+
+            string response_four = $"If you need to verify your identity if ID proofing was unsuccessful, check out this quick guide with pictures: " +
+                $"https://www.healthcare.gov/downloads/how-to-verify-identity-Final.pdf";
+            await context.PostAsync(response_four);
+
+            string response_five = $"If you don't want to submit your documents online, go to the following page for information: " +
+                $"https://www.healthcare.gov/tips-and-troubleshooting/uploading-documents/#by-mail";
+            await context.PostAsync(response_five);
+
+            string response_six = $"You can find general information on submitting your documents here: " +
+                $"https://www.healthcare.gov/tips-and-troubleshooting/uploading-documents";
+            await context.PostAsync(response_six);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("InconmeChange")]
+        public async Task InconmeChange(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response_one = $"Update your application as soon as possible. If you don’t, your savings could be wrong " +
+                $"and you could wind up paying higher premiums or owing money when you file taxes.";
+            await context.PostAsync(response_one);
+
+            string response_two = $"Here you can see what changes to report: " +
+                $"https://www.healthcare.gov/reporting-changes/which-changes-to-report";
+            await context.PostAsync(response_two);
+
+            string response_three = $"And here you can learn how to report your changes: " +
+                $"https://www.healthcare.gov/reporting-changes/how-to-report-changes";
+            await context.PostAsync(response_three);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("WaysToApply")]
+        public async Task WaysToApply(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response_one = $"You can apply online, by phone, with the help of a trained assister in your community, " +
+                $"through an agent or broker, or with a paper application. Here's some information: " +
+                $"https://www.healthcare.gov/apply-and-enroll/how-to-apply/#howtoapply";
+            await context.PostAsync(response_one);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("InformationBeforeApply")]
+        public async Task InformationBeforeApply(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+            string response_one = $"When you apply, you’ll provide details about your household, income, and any coverage you currently have. " +
+                $"You can use this checklist to make sure you're ready: " +
+                $"https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf";
+            await context.PostAsync(response_one);
+
+            context.Wait(this.MessageReceived);
+        }
+
+
     }
 }
