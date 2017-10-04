@@ -296,9 +296,20 @@ namespace aca_helper.Dialogs
         {
             var message = await activity;
 
-            string response_two = $"To learn how your deductible, premium, and other costs work together to make up your total health care cost, go here: " +
+            string response_one = $"To learn how your deductible, premium, and other costs work together to make up your total health care cost, go here: " +
                 $"https://www.healthcare.gov/choose-a-plan/your-total-costs";
-            await context.PostAsync(response_two);
+            await context.PostAsync(response_one);
+
+            context.Wait(this.MessageReceived);
+        }
+
+        [LuisIntent("Insult")]
+        public async Task Insult(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
+        {
+            var message = await activity;
+
+            string response_one = $"Stop acting like a child.";
+            await context.PostAsync(response_one);
 
             context.Wait(this.MessageReceived);
         }
