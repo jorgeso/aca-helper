@@ -17,7 +17,15 @@ namespace aca_helper
                     {
                         Order = 1,
                         Intent = "None",
-                        Message = "Sorry, I did not understand {0}. Try something that makes sense."
+                        Message = "I have not been trained to respond to your question. If you re-phrase it, I may be able to understand it."
+                    },
+                    new Response()
+                    {
+                        Order = 2,
+                        Intent = "None",
+                        Message = "Also, your question may be too complex for me, so you may need the help of a much smarter human. " +
+                            "Please go here to find some help: " +
+                            "https://localhelp.healthcare.gov"
                     },
 
                     new Response()
@@ -26,6 +34,7 @@ namespace aca_helper
                         Intent = "ImportantDates",
                         Message = "Open Enrollment begins November 1, 2017 and it ends December 15, 2017. After December 15, you can still buy a health plan if you qualify for a Special Enrollment Period (https://www.healthcare.gov/glossary/special-enrollment-period). If you buy any plans, coverage starts on January 1, 2018."
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -45,6 +54,7 @@ namespace aca_helper
                         Message = "And use this checklist to gather everything you’ll need to apply: " +
                 $"https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -69,6 +79,7 @@ namespace aca_helper
                         Intent = "GettingReady",
                         Message = "And finally, you can get an overview of the Marketplace here: https://www.healthcare.gov/quick-guide"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -77,6 +88,7 @@ namespace aca_helper
                 $"go here: https://www.healthcare.gov/lower-costs. We'll tell you if your income's in the saving range. But you'll find out " +
                 $"exactly how much you'll save when you apply."
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -118,6 +130,7 @@ namespace aca_helper
                         Message = "You can find general information on submitting your documents here: " +
                 $"https://www.healthcare.gov/tips-and-troubleshooting/uploading-documents"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -139,6 +152,7 @@ namespace aca_helper
                         Message = $"And here you can learn how to report your changes: " +
                 $"https://www.healthcare.gov/reporting-changes/how-to-report-changes"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -147,6 +161,7 @@ namespace aca_helper
                 $"through an agent or broker, or with a paper application. Here's some information: " +
                 $"https://www.healthcare.gov/apply-and-enroll/how-to-apply/#howtoapply"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -155,6 +170,7 @@ namespace aca_helper
                 $"You can use this checklist to make sure you're ready: " +
                 $"https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -170,6 +186,7 @@ namespace aca_helper
                         Message = $"You can find more information here: " +
                 $"https://www.healthcare.gov/lower-costs/save-on-out-of-pocket-costs"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -190,6 +207,7 @@ namespace aca_helper
                         Message = $"And here you can information on what counts as income: " +
                 $"https://www.healthcare.gov/income-and-household-information/income"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -205,6 +223,7 @@ namespace aca_helper
                         Message = $"You can find more information here: " +
                 $"https://www.healthcare.gov/income-and-household-information/household-size"
                     },
+
                     new Response()
                     {
                         Order = 1,
@@ -212,12 +231,14 @@ namespace aca_helper
                         Message = $"To learn how your deductible, premium, and other costs work together to make up your total health care cost, go here: " +
                 $"https://www.healthcare.gov/choose-a-plan/your-total-costs"
                     },
+
                     new Response()
                     {
                         Order = 1,
                         Intent = "Greeting",
                         Message = $"Hello, how can I help you?"
                     },
+
                     new Response()
                     {
                         Order = 1,
