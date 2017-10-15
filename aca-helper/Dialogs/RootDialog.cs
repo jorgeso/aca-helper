@@ -19,9 +19,14 @@ namespace aca_helper.Dialogs
         [LuisIntent("None")]
         public async Task None(IDialogContext context, LuisResult result)
         {
-            string message = $"Sorry, I did not understand '{result.Query}'. Try something that makes sense.";
+            var responseMessages = Responses.GetResponses("None");
 
-            await context.PostAsync(message);
+            foreach (var responseMessage in responseMessages)
+            {
+                string message = string.Format(responseMessage.Message, result.Query);
+
+                await context.PostAsync(message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -30,12 +35,11 @@ namespace aca_helper.Dialogs
         public async Task ImportantDates(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response = $"Open Enrollment begins November 1, 2017 and it ends December 15, 2017. After December 15, you can still buy a health plan if you qualify for a Special Enrollment Period (https://www.healthcare.gov/glossary/special-enrollment-period). If you buy any plans, coverage starts on January 1, 2018.";
 
             var start2018 = new DateTime(2018, 01, 01);
             var start2019 = new DateTime(2019, 01, 01);
 
-            string correctResponse = $"Open Enrollment begins November 1, 2017 and it ends December 15, 2017. After December 15, you can still buy a health plan if you qualify for a Special Enrollment Period (https://www.healthcare.gov/glossary/special-enrollment-period). If you buy any plans, coverage starts on January 1, 2018.";
+            var responseMessages = Responses.GetResponses("ImportantDates");
 
             Chronic.Parser parser = new Chronic.Parser();
             EntityRecommendation date = new EntityRecommendation();
@@ -45,13 +49,18 @@ namespace aca_helper.Dialogs
             {
                 dateResult = parser.Parse(date.Entity);
 
-                if (dateResult.Start >= start2018 && dateResult.Start < start2019)
+                if (dateResult.Start < start2018 || dateResult.Start >= start2019)
                 {
-                    response = correctResponse;
+                    string _message = $"I'm assuming you're asking for the important dates to sign up for coverage for 2018.";
+
+                    await context.PostAsync(_message);
                 }
-                else
+
+                foreach (var responseMessage in responseMessages)
                 {
-                    response = $"I'm assuming you're asking for the important dates for signing up for coverage for 2018. " + correctResponse;
+                    string _message = string.Format(responseMessage.Message);
+
+                    await context.PostAsync(_message);
                 }
             }
 
@@ -103,17 +112,20 @@ namespace aca_helper.Dialogs
                     }
                 }
 
-                if (entityStart >= start2018 && entityEnd <= start2019)
+                if (entityStart < start2018 || entityEnd >= start2019)
                 {
-                    response = correctResponse;
-                } else
-                {
-                    response = $"I'm assuming you're asking for the important dates for signing up for coverage for 2018. " + correctResponse;
+                    string _message = $"I'm assuming you're asking for the important dates to sign up for coverage for 2018.";
+
+                    await context.PostAsync(_message);
                 }
 
-            }
+                foreach (var responseMessage in responseMessages)
+                {
+                    string _message = string.Format(responseMessage.Message);
 
-            await context.PostAsync(response);
+                    await context.PostAsync(_message);
+                }
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -122,15 +134,15 @@ namespace aca_helper.Dialogs
         public async Task PlanAndPrices(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response_one = $"2018 plans and prices will be available for preview shortly before Open Enrollment starts on November 1, 2017";
-            await context.PostAsync(response_one);
 
-            string response_two = $"For now, read these Marketplace tips: https://www.healthcare.gov/quick-guide";
-            await context.PostAsync(response_two);
+            var responseMessages = Responses.GetResponses("PlanAndPrices");
 
-            string response_three = $"And use this checklist to gather everything you’ll need to apply: " +
-                $"https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf";
-            await context.PostAsync(response_three);
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -139,17 +151,15 @@ namespace aca_helper.Dialogs
         public async Task GettingReady(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response_one = $"It's important that you take the time to get ready";
-            await context.PostAsync(response_one);
 
-            string response_two = $"First, you can go to this website to see you're eligible to apply: https://www.healthcare.gov/quick-guide/eligibility";
-            await context.PostAsync(response_two);
+            var responseMessages = Responses.GetResponses("GettingReady");
 
-            string response_three = $"Then, you can go through this checklist to make sure you're ready: https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf";
-            await context.PostAsync(response_three);
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
 
-            string response_four = $"And finally, you can get an overview of the Marketplace here: https://www.healthcare.gov/quick-guide";
-            await context.PostAsync(response_four);
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -158,11 +168,15 @@ namespace aca_helper.Dialogs
         public async Task IsSavingMoney(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response = $"Your savings depend on your expected household income for 2018. To get a quick idea if you’ll save, " +
-                $"go here: https://www.healthcare.gov/lower-costs. We'll tell you if your income's in the saving range. But you'll find out " +
-                $"exactly how much you'll save when you apply.";
 
-            await context.PostAsync(response);
+            var responseMessages = Responses.GetResponses("IsSavingMoney");
+
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -172,28 +186,14 @@ namespace aca_helper.Dialogs
         {
             var message = await activity;
 
-            string response_one = $"The method for uploading documents online depends on the information you're providing";
-            await context.PostAsync(response_one);
+            var responseMessages = Responses.GetResponses("SubmitDocuments");
 
-            string response_two = $"If you need to confirm application information, like your income, check out this quick guide with pictures: " +
-                $"https://www.healthcare.gov/downloads/howto-uploaddocs-datamatching-FINAL.pdf";
-            await context.PostAsync(response_two);
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
 
-            string response_three = $"If you need to confirm your Special Enrollment Period eligibility, like if you lost other health coverage or moved, check out this quick guide with pictures: " +
-                $"https://www.healthcare.gov/downloads/SEPV-how-to-upload-docs_final.pdf";
-            await context.PostAsync(response_three);
-
-            string response_four = $"If you need to verify your identity if ID proofing was unsuccessful, check out this quick guide with pictures: " +
-                $"https://www.healthcare.gov/downloads/how-to-verify-identity-Final.pdf";
-            await context.PostAsync(response_four);
-
-            string response_five = $"If you don't want to submit your documents online, go to the following page for information: " +
-                $"https://www.healthcare.gov/tips-and-troubleshooting/uploading-documents/#by-mail";
-            await context.PostAsync(response_five);
-
-            string response_six = $"You can find general information on submitting your documents here: " +
-                $"https://www.healthcare.gov/tips-and-troubleshooting/uploading-documents";
-            await context.PostAsync(response_six);
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -202,17 +202,15 @@ namespace aca_helper.Dialogs
         public async Task InconmeChange(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response_one = $"Update your application as soon as possible. If you don’t, your savings could be wrong " +
-                $"and you could wind up paying higher premiums or owing money when you file taxes.";
-            await context.PostAsync(response_one);
 
-            string response_two = $"Here you can see what changes to report: " +
-                $"https://www.healthcare.gov/reporting-changes/which-changes-to-report";
-            await context.PostAsync(response_two);
+            var responseMessages = Responses.GetResponses("InconmeChange");
 
-            string response_three = $"And here you can learn how to report your changes: " +
-                $"https://www.healthcare.gov/reporting-changes/how-to-report-changes";
-            await context.PostAsync(response_three);
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -221,10 +219,15 @@ namespace aca_helper.Dialogs
         public async Task WaysToApply(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response_one = $"You can apply online, by phone, with the help of a trained assister in your community, " +
-                $"through an agent or broker, or with a paper application. Here's some information: " +
-                $"https://www.healthcare.gov/apply-and-enroll/how-to-apply/#howtoapply";
-            await context.PostAsync(response_one);
+
+            var responseMessages = Responses.GetResponses("WaysToApply");
+
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -233,10 +236,15 @@ namespace aca_helper.Dialogs
         public async Task InformationBeforeApply(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response_one = $"When you apply, you’ll provide details about your household, income, and any coverage you currently have. " +
-                $"You can use this checklist to make sure you're ready: " +
-                $"https://marketplace.cms.gov/outreach-and-education/marketplace-application-checklist.pdf";
-            await context.PostAsync(response_one);
+
+            var responseMessages = Responses.GetResponses("InformationBeforeApply");
+
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -245,14 +253,15 @@ namespace aca_helper.Dialogs
         public async Task CostSharingReductions(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response_one = $"\"Cost sharing reductions\" lower your out-of-pocket costs for health insurance. If you " +
-                $"qualify, you must enroll in a Silver plan to get these extra savings. With Silver, you’ll have a pretty low " +
-                $"premium, with a lower deductible and lower costs whenever you go to the doctor or have other medical expenses.";
-            await context.PostAsync(response_one);
 
-            string response_two = $"You can find more information here: " +
-                $"https://www.healthcare.gov/lower-costs/save-on-out-of-pocket-costs";
-            await context.PostAsync(response_two);
+            var responseMessages = Responses.GetResponses("CostSharingReductions");
+
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -261,16 +270,15 @@ namespace aca_helper.Dialogs
         public async Task EstimatingIncome(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response_one = $"The Marketplace bases savings on your estimated income for the year you want coverage – not last year's.";
-            await context.PostAsync(response_one);
 
-            string response_two = $"You can find information on how to estimate you expected income here: " +
-                $"https://www.healthcare.gov/income-and-household-information/how-to-report";
-            await context.PostAsync(response_two);
+            var responseMessages = Responses.GetResponses("EstimatingIncome");
 
-            string response_three = $"And here you can information on what counts as income: " +
-                $"https://www.healthcare.gov/income-and-household-information/income";
-            await context.PostAsync(response_three);
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -279,14 +287,15 @@ namespace aca_helper.Dialogs
         public async Task IncludedInHousehold(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
             var message = await activity;
-            string response_one = $"Most households include the person applying for coverage, their spouse (if married), " +
-                $"and anybody they claim as a tax dependent - including those who don't need health coverage. When you " +
-                $"apply, you can say who needs coverage and who doesn’t";
-            await context.PostAsync(response_one);
 
-            string response_two = $"You can find more information here: " +
-                $"https://www.healthcare.gov/income-and-household-information/household-size";
-            await context.PostAsync(response_two);
+            var responseMessages = Responses.GetResponses("IncludedInHousehold");
+
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -296,9 +305,14 @@ namespace aca_helper.Dialogs
         {
             var message = await activity;
 
-            string response_one = $"To learn how your deductible, premium, and other costs work together to make up your total health care cost, go here: " +
-                $"https://www.healthcare.gov/choose-a-plan/your-total-costs";
-            await context.PostAsync(response_one);
+            var responseMessages = Responses.GetResponses("TotalHealthCareCost");
+
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -308,8 +322,14 @@ namespace aca_helper.Dialogs
         {
             var message = await activity;
 
-            string response_one = $"Hello, how can I help you?";
-            await context.PostAsync(response_one);
+            var responseMessages = Responses.GetResponses("Greeting");
+
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
@@ -319,11 +339,14 @@ namespace aca_helper.Dialogs
         {
             var message = await activity;
 
-            string response_one = $"I'm a robot. How bad can things be?";
-            await context.PostAsync(response_one);
+            var responseMessages = Responses.GetResponses("HowAreYou");
 
-            string response_two = $"How can I help you?";
-            await context.PostAsync(response_two);
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
+            }
 
             context.Wait(this.MessageReceived);
         }
