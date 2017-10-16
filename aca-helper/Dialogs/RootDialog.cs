@@ -55,13 +55,6 @@ namespace aca_helper.Dialogs
 
                     await context.PostAsync(_message);
                 }
-
-                foreach (var responseMessage in responseMessages)
-                {
-                    string _message = string.Format(responseMessage.Message);
-
-                    await context.PostAsync(_message);
-                }
             }
 
             EntityRecommendation dateRange = new EntityRecommendation();
@@ -119,12 +112,13 @@ namespace aca_helper.Dialogs
                     await context.PostAsync(_message);
                 }
 
-                foreach (var responseMessage in responseMessages)
-                {
-                    string _message = string.Format(responseMessage.Message);
+            }
 
-                    await context.PostAsync(_message);
-                }
+            foreach (var responseMessage in responseMessages)
+            {
+                string _message = string.Format(responseMessage.Message);
+
+                await context.PostAsync(_message);
             }
 
             context.Wait(this.MessageReceived);
