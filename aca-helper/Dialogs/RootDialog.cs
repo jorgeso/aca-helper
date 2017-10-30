@@ -15,6 +15,15 @@ namespace aca_helper.Dialogs
     [Serializable]
     public class RootDialog : LuisDialog<object>
     {
+        private string ForeignLanguage { get; set; }
+        public TranslationService translationService { get; set; }
+
+        public RootDialog(string foreignLanguage = "")
+        {
+            this.translationService = new TranslationService();
+            this.ForeignLanguage = foreignLanguage;
+        }
+
         [LuisIntent("")]
         [LuisIntent("None")]
         public async Task None(IDialogContext context, LuisResult result)
@@ -23,7 +32,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string message = string.Format(responseMessage.Message, result.Query);
+                string message = translationService.TranslateText(string.Format(responseMessage.Message, result.Query), this.ForeignLanguage);
 
                 await context.PostAsync(message);
             }
@@ -51,7 +60,7 @@ namespace aca_helper.Dialogs
 
                 if (dateResult.Start < start2018 || dateResult.Start >= start2019)
                 {
-                    string _message = $"I'm assuming you're asking for the important dates to sign up for coverage for 2018.";
+                    string _message = translationService.TranslateText($"I'm assuming you're asking for the important dates to sign up for coverage for 2018.", ForeignLanguage);
 
                     await context.PostAsync(_message);
                 }
@@ -67,7 +76,7 @@ namespace aca_helper.Dialogs
 
                 var testing = dateRange.Resolution["values"];
 
-                var first = testing.ToString();
+                var first = translationService.TranslateText(testing.ToString(), ForeignLanguage);
 
                 var objects = JArray.Parse(first); // parse as array  
                 foreach (JObject root in objects)
@@ -107,7 +116,7 @@ namespace aca_helper.Dialogs
 
                 if (entityStart < start2018 || entityEnd >= start2019)
                 {
-                    string _message = $"I'm assuming you're asking for the important dates to sign up for coverage for 2018.";
+                    string _message = translationService.TranslateText($"I'm assuming you're asking for the important dates to sign up for coverage for 2018.", ForeignLanguage);
 
                     await context.PostAsync(_message);
                 }
@@ -116,7 +125,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -133,7 +142,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -150,7 +159,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -167,7 +176,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -184,7 +193,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -201,7 +210,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -218,7 +227,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -235,7 +244,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -252,7 +261,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -269,7 +278,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -286,7 +295,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -303,7 +312,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -320,7 +329,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
@@ -337,7 +346,7 @@ namespace aca_helper.Dialogs
 
             foreach (var responseMessage in responseMessages)
             {
-                string _message = string.Format(responseMessage.Message);
+                string _message = translationService.TranslateText(string.Format(responseMessage.Message), ForeignLanguage);
 
                 await context.PostAsync(_message);
             }
