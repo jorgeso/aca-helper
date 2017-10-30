@@ -17,15 +17,7 @@ namespace aca_helper
                     {
                         Order = 1,
                         Intent = "None",
-                        Message = "I have not been trained to respond to your question. If you re-phrase it, I may be able to understand it."
-                    },
-                    new Response()
-                    {
-                        Order = 2,
-                        Intent = "None",
-                        Message = "Also, your question may be too complex for me, so you may need the help of a much smarter human. " +
-                            "Please go here to find some help: " +
-                            "https://localhelp.healthcare.gov"
+                        Message = "I don't understand your question. Can you try re-phrasing it? If that doesn't work after a few tries, it means I can't help you and you need human help: https://localhelp.healthcare.gov"
                     },
 
                     new Response()
